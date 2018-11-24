@@ -1,0 +1,103 @@
+{
+    "name": "vscode-advanced-search",
+    "displayName": "vscode-advanced-search",
+    "description": "Advanced web search for vscode",
+    "version": "1.0.0",
+    "publisher": "contact@ettoreciprian.com",
+    "engines": {
+        "vscode": "^1.28.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:websearch.github",
+        "onCommand:websearch.stackoverflow"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "websearch.github",
+                "title": "Search Github",
+                "category": "Web Search"
+            },
+            {
+                "command": "websearch.stackoverflow",
+                "title": "Search StackOverflow",
+                "category": "Web Search"
+            }
+        ],
+        "configuration": {
+            "title": "WebSearch Configuration",
+            "type": "object",
+            "properties": {
+                "websearch.searchProviders": {
+                    "title": "Search providers",
+                    "type": "array",
+                    "description": "An array with search engines, mapping a provider to a search url and its options.",
+                    "default": [
+                        {
+                            "name": "github",
+                            "className" : "GithubSearch",
+                            "defaultQuery": {
+                                "org": ""
+                            },
+                            "defaultParams": {
+                                "type": "code"
+                            }
+                        },
+                        {
+                            "name": "stackoverflow",
+                            "className" : "StackOverflow",
+                            "defaultQuery": {
+                                "is": "answer"
+                            },
+                            "defaultParams": {}
+                        }
+                    ]
+                },
+                "websearch.defaultProvider": {
+                    "title": "Default search provider",
+                    "type": "string",
+                    "description": "A string containing a name from searchProviders.",
+                    "default": "github"
+                },
+                "websearch.noInputBoxIfTextSelected": {
+                    "title": "No input box if text is selected",
+                    "type": "boolean",
+                    "description": "If this is 'true' no input box will appear if selected text is searched.",
+                    "default": false
+                }
+            }
+        },
+        "keybindings": [
+            {
+                "command": "websearch.github",
+                "key": "ctrl+alt+G"
+            },
+            {
+                "command": "websearch.stackoverflow",
+                "key": "ctrl+alt+O"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc --alwaysStrict -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.21",
+        "tslint": "^5.8.0",
+        "@types/node": "^8.10.25",
+        "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "@types/opn": "^5.1.0",
+        "opn": "^5.4.0"
+    }
+}
