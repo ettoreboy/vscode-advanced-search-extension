@@ -1,11 +1,13 @@
 # vscode-advanced-search
-Created with TS and <3 by platinumjesus
+
+![Icon](./icons/icon.png)
+A simple web search command that opens a page in your default browser based on your search configurations.
 
 ## Features
 
-- Open github, google or stackoverflow with the editor selected text.
+- Search github, google or stackoverflow with the editor selected text.
 - Configure a search provider with default advanced parameters.
-- Provide your own search implementation
+- Easily extendible with your own custom search definition
 
 ## Extension Settings
 
@@ -31,3 +33,6 @@ In case you want to extend the possible search or simply bug fix. Follow [this](
 ### 1.0.0
 
 Added Github and StackOverflow searches
+
+
+MIT © Ettore Ciprian

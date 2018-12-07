@@ -10,12 +10,12 @@ const getSelectedText = (): string => {
     return window.activeTextEditor.document.getText(selection);
 };
 
-const registerSearchCommand = (context: ExtensionContext, name: string, className: string): void => {
+const registerSearchCommand = (context: ExtensionContext, name: string, className: string = Config.getDefaultProvider()): void => {
     // The commandId parameter must match the command field in package.json
     let disposable = commands.registerCommand(`websearch.${name}`, () => {
         // The code you place here will be executed every time your command is executed
         const text = getSelectedText();
-        import(`./search/impl/${className}`)
+        import(`./search/${className}`)
             .then(searchProvider => {
                 (new searchProvider.default(name, text)).open();
             }).catch(error => {
@@ -47,6 +47,4 @@ export function activate(context: ExtensionContext) {
  * This method is called when your extension is deactivated
  * @override
  */
-export function deactivate() {
-    
-}
+export function deactivate() {}

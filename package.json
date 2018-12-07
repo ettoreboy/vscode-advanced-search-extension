@@ -11,8 +11,7 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:websearch.github",
-        "onCommand:websearch.stackoverflow"
+        "*"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -25,6 +24,11 @@
             {
                 "command": "websearch.stackoverflow",
                 "title": "Search StackOverflow",
+                "category": "Web Search"
+            },
+            {
+                "command": "websearch.google",
+                "title": "Search Google",
                 "category": "Web Search"
             }
         ],
@@ -39,20 +43,24 @@
                     "default": [
                         {
                             "name": "github",
-                            "className" : "GithubSearch",
-                            "defaultQuery": {
-                                "org": ""
-                            },
+                            "baseUrl": "https://github.com/search",
+                            "defaultQuery": {},
                             "defaultParams": {
                                 "type": "code"
                             }
                         },
                         {
                             "name": "stackoverflow",
-                            "className" : "StackOverflow",
+                            "baseUrl": "https://stackoverflow.com/search",
                             "defaultQuery": {
                                 "is": "answer"
                             },
+                            "defaultParams": {}
+                        },
+                        {
+                            "name": "google",
+                            "baseUrl": "https://www.google.com/search",
+                            "defaultQuery": {},
                             "defaultParams": {}
                         }
                     ]

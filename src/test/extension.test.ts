@@ -7,7 +7,6 @@ import { isValid } from '../config/Config';
 
 suite("WebSearch Extension tests", function () {
     
-
     test("Test Configuration", function() {
         assert(isValid());
     });

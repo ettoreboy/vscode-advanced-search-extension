@@ -8,22 +8,16 @@ const opn = require('opn');
 /**
  * Generic for a web search builder
  */
-export default abstract class AbstractWebSearchProvider {
+export default class WebSearchProvider {
     /**
      * Define to the base URL for the search
      * @type URL
      * @example new URL("https://github.com/search");
      */
-    abstract baseUrl: URL;
+    private baseUrl: URL;
 
     /**
-     * Implement this to build the full url for the search
-     * @return string
-     */
-    abstract buildUrl(): string;
-
-    /**
-     * Default definition for this search provider
+     * Default worksapce definition for this search provider
      */
     private definition: SearchProviderDefinition;
 
@@ -37,18 +31,16 @@ export default abstract class AbstractWebSearchProvider {
      */
     private searchKey: string;
 
+    /**
+     * 
+     * @param name Name of this search provider - must match the command
+     * @param searchkey The input text for the search
+     */
     constructor(name: string, searchkey: string) {
         this.name = name;
         this.searchKey = searchkey;
         this.definition = getSearchProviderDefinitionByName(this.name);
-    }
-
-    /**
-   * get the default definition for this search provider
-   * @return SearchProviderDefinition
-   */
-    public getDefinition(): SearchProviderDefinition {
-        return this.definition;
+        this.baseUrl = new URL(this.definition.baseUrl);
     }
 
     /**
@@ -62,9 +54,20 @@ export default abstract class AbstractWebSearchProvider {
     /**
      * Builds the '?q' parameter. 
      */
+    protected buildUrl() {
+        this.baseUrl.searchParams.set("q", this.buildExtraQueryParams());
+        obj_to_map(this.definition.defaultParams).forEach((key, value) => {
+            this.baseUrl.searchParams.set(value, key);
+        });
+        return this.baseUrl.toString();
+    }
+
+    /**
+     * Builds the extra parameters
+     */
     protected buildExtraQueryParams(): string {
         let stringResult = '';
-        const extraParamsMap = obj_to_map(this.getDefinition().defaultQuery);
+        const extraParamsMap = obj_to_map(this.definition.defaultQuery);
     
         extraParamsMap.forEach((key: string, value: string) => {
             stringResult += ` ${encodeURIComponent(value)}:${encodeURIComponent(key)}`;
