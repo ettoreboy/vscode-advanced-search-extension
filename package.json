@@ -3,7 +3,7 @@
     "displayName": "vscode-advanced-search",
     "description": "Advanced web search for vscode",
     "version": "1.0.0",
-    "publisher": "contact@ettoreciprian.com",
+    "publisher": "platinumjesus",
     "engines": {
         "vscode": "^1.28.0"
     },
@@ -65,12 +65,6 @@
                         }
                     ]
                 },
-                "websearch.defaultProvider": {
-                    "title": "Default search provider",
-                    "type": "string",
-                    "description": "A string containing a name from searchProviders.",
-                    "default": "github"
-                },
                 "websearch.noInputBoxIfTextSelected": {
                     "title": "No input box if text is selected",
                     "type": "boolean",
@@ -82,11 +76,15 @@
         "keybindings": [
             {
                 "command": "websearch.github",
-                "key": "ctrl+alt+G"
+                "key": "ctrl+alt+H"
             },
             {
                 "command": "websearch.stackoverflow",
                 "key": "ctrl+alt+O"
+            },
+            {
+                "command": "websearch.google",
+                "key": "ctrl+alt+G"
             }
         ]
     },

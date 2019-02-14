@@ -1,7 +1,6 @@
 import { window } from 'vscode';
 import { URL } from 'url';
 import SearchProviderDefinition from './SearchProviderDefinition';
-import { getSearchProviderDefinitionByName } from '../config/Config';
 import { obj_to_map } from '../Utils';
 const opn = require('opn');
 
@@ -19,12 +18,12 @@ export default class WebSearchProvider {
     /**
      * Default worksapce definition for this search provider
      */
-    private definition: SearchProviderDefinition;
+    private _definition: SearchProviderDefinition;
 
     /**
      * This provider's name
      */
-    protected name: string;
+    private _name: string;
 
     /**
      * Defines the search key for this web search provider to build
@@ -33,14 +32,14 @@ export default class WebSearchProvider {
 
     /**
      * 
-     * @param name Name of this search provider - must match the command
+     * @param definition Definition of this search provider - must match the command
      * @param searchkey The input text for the search
      */
-    constructor(name: string, searchkey: string) {
-        this.name = name;
+    constructor(definition: SearchProviderDefinition, searchkey: string) {
         this.searchKey = searchkey;
-        this.definition = getSearchProviderDefinitionByName(this.name);
-        this.baseUrl = new URL(this.definition.baseUrl);
+        this._definition = definition;
+        this._name = definition.name;
+        this.baseUrl = new URL(definition.baseUrl);
     }
 
     /**
@@ -51,12 +50,20 @@ export default class WebSearchProvider {
         return this.searchKey;
     }
 
+      /**
+     * Returns the name of this provider
+     * @return the selected text string
+     */
+    public getName(): string {
+        return this._name;
+    }
+
     /**
      * Builds the '?q' parameter. 
      */
     protected buildUrl() {
         this.baseUrl.searchParams.set("q", this.buildExtraQueryParams());
-        obj_to_map(this.definition.defaultParams).forEach((key, value) => {
+        obj_to_map(this._definition.defaultParams).forEach((key, value) => {
             this.baseUrl.searchParams.set(value, key);
         });
         return this.baseUrl.toString();
@@ -67,7 +74,7 @@ export default class WebSearchProvider {
      */
     protected buildExtraQueryParams(): string {
         let stringResult = '';
-        const extraParamsMap = obj_to_map(this.definition.defaultQuery);
+        const extraParamsMap = obj_to_map(this._definition.defaultQuery);
     
         extraParamsMap.forEach((key: string, value: string) => {
             stringResult += ` ${encodeURIComponent(value)}:${encodeURIComponent(key)}`;

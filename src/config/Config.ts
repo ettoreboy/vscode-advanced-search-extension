@@ -1,11 +1,11 @@
 import { workspace } from 'vscode';
 import SearchProviderDefinition from '../search/SearchProviderDefinition';
-/**
- *  Extnsion configuration interface
- */
 
-const EXTENSION_NAME = "websearch";
-const DEFAULT_PROVIDER = "WebSearchProvider";
+/**
+ *  Singleton configuration interface
+ */
+export const EXTENSION_NAME = "websearch";
+
 const CONFIG = workspace.getConfiguration(EXTENSION_NAME);
 
 export function isValid(): boolean {
@@ -21,5 +21,3 @@ export function getSearchProviderDefinitionByName(name: string): SearchProviderD
     return getSearchProvidersFromConfig().find(obj => obj.name === name) || 
             new SearchProviderDefinition();
 }
-
-export function getDefaultProvider() { return DEFAULT_PROVIDER; }

@@ -1,7 +1,6 @@
-
 /**
  * Object to HashMap
- * @param obj 
+ * @param obj
  */
 export function obj_to_map(obj: any): Map<string, string> {
     const mp = new Map<string, string>();

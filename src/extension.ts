@@ -1,30 +1,7 @@
-import { window, ExtensionContext, commands } from 'vscode';
 import * as Config from './config/Config';
-
-const getSelectedText = (): string => {
-    if (!window.activeTextEditor) {
-        return "";
-    }
-
-    const { selection } = window.activeTextEditor;
-    return window.activeTextEditor.document.getText(selection);
-};
-
-const registerSearchCommand = (context: ExtensionContext, name: string, className: string = Config.getDefaultProvider()): void => {
-    // The commandId parameter must match the command field in package.json
-    let disposable = commands.registerCommand(`websearch.${name}`, () => {
-        // The code you place here will be executed every time your command is executed
-        const text = getSelectedText();
-        import(`./search/${className}`)
-            .then(searchProvider => {
-                (new searchProvider.default(name, text)).open();
-            }).catch(error => {
-                window.showErrorMessage('WebSearch Extension ' + error);
-            });
-    });
-
-    context.subscriptions.push(disposable);
-};
+import { window, ExtensionContext, commands } from 'vscode';
+import SearchProviderDefinition from './search/SearchProviderDefinition';
+import { EXTENSION_NAME } from './config/Config';
 
 /**
  * On activation of the extension
@@ -38,8 +15,8 @@ export function activate(context: ExtensionContext) {
     }
 
     const searchProviders = Config.getSearchProvidersFromConfig();
-    searchProviders.forEach(provider => {
-        registerSearchCommand(context, provider.name, provider.className);
+    searchProviders.forEach((providerDefinition) => {
+        registerSearchCommand(context, providerDefinition);
     });
 }
 
@@ -47,4 +24,40 @@ export function activate(context: ExtensionContext) {
  * This method is called when your extension is deactivated
  * @override
  */
-export function deactivate() {}
+export function deactivate() { }
+
+
+/**
+ * Register a search provider using a SearchProviderDefinition
+ * @param context ExtensionContext
+ * @param definition SearchProviderDefinition
+ */
+function registerSearchCommand(context: ExtensionContext, definition: SearchProviderDefinition): void {
+    const commandName = definition.name;
+    const className = definition.className;
+    
+    let disposable = commands.registerCommand(`${EXTENSION_NAME}.${commandName}`, () => {
+        // The code you place here will be executed every time your command is executed
+        const text = getSelectedText();
+        import(`./search/${className}`)
+            .then(searchProvider => {
+                (new searchProvider.default(definition, text)).open();
+            }).catch(error => {
+                window.showErrorMessage('WebSearch Extension ' + error);
+            });
+    });
+
+    context.subscriptions.push(disposable);
+}
+
+/**
+ * Get the selected text from the currently active editor
+ */
+function getSelectedText(): string {
+    if (!window.activeTextEditor) {
+        return "";
+    }
+
+    const { selection } = window.activeTextEditor;
+    return window.activeTextEditor.document.getText(selection);
+}
