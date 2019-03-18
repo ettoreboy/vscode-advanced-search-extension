@@ -1,7 +1,7 @@
 import { window } from 'vscode';
 import { URL } from 'url';
 import SearchProviderDefinition from './SearchProviderDefinition';
-import { obj_to_map } from '../Utils';
+import { obj_to_map } from '../utils/Utils';
 const opn = require('opn');
 
 /**
@@ -26,28 +26,14 @@ export default class WebSearchProvider {
     private _name: string;
 
     /**
-     * Defines the search key for this web search provider to build
-     */
-    private searchKey: string;
-
-    /**
      * 
      * @param definition Definition of this search provider - must match the command
      * @param searchkey The input text for the search
      */
-    constructor(definition: SearchProviderDefinition, searchkey: string) {
-        this.searchKey = searchkey;
+    constructor(definition: SearchProviderDefinition) {
         this._definition = definition;
         this._name = definition.name;
         this.baseUrl = new URL(definition.baseUrl);
-    }
-
-    /**
-     * Returns the searched text
-     * @return the selected text string
-     */
-    public getSearchKey(): string {
-        return this.searchKey;
     }
 
       /**
@@ -61,8 +47,8 @@ export default class WebSearchProvider {
     /**
      * Builds the '?q' parameter. 
      */
-    protected buildUrl() {
-        this.baseUrl.searchParams.set("q", this.buildExtraQueryParams());
+    protected buildUrl(searchText: string) {
+        this.baseUrl.searchParams.set("q", this.buildQueryParam(searchText));
         obj_to_map(this._definition.defaultParams).forEach((key, value) => {
             this.baseUrl.searchParams.set(value, key);
         });
@@ -70,16 +56,16 @@ export default class WebSearchProvider {
     }
 
     /**
-     * Builds the extra parameters
+     * Builds the q parameter in the URL
      */
-    protected buildExtraQueryParams(): string {
-        let stringResult = '';
+    protected buildQueryParam(searchText: string): string {
+        let queryResult = '';
         const extraParamsMap = obj_to_map(this._definition.defaultQuery);
     
         extraParamsMap.forEach((key: string, value: string) => {
-            stringResult += ` ${encodeURIComponent(value)}:${encodeURIComponent(key)}`;
+            queryResult += ` ${encodeURIComponent(value)}:${encodeURIComponent(key)}`;
         });
-        return this.getSearchKey() + stringResult;
+        return searchText.concat(queryResult);
     }
 
     /**
@@ -87,9 +73,9 @@ export default class WebSearchProvider {
      * @param uri
      * @param browser 
      */
-    public open(browser: string = '') {
-        if (this.getSearchKey() !== '') {
-            opn(this.buildUrl(), { app: browser })
+    public open(searchText:string, browser: string = '') {
+        if (searchText !== '') {
+            opn(this.buildUrl(searchText), { app: browser })
                 .then(() => {
                     window.showInformationMessage(`Opening web search`);
                 })

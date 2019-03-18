@@ -96,14 +96,14 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^8.10.44",
+        "@types/opn": "^5.1.0",
+        "tslint": "^5.14.0",
         "typescript": "^2.6.1",
-        "vscode": "^1.1.21",
-        "tslint": "^5.8.0",
-        "@types/node": "^8.10.25",
-        "@types/mocha": "^2.2.42"
+        "vscode": "^1.1.30"
     },
     "dependencies": {
-        "@types/opn": "^5.1.0",
-        "opn": "^5.4.0"
+        "opn": "^5.5.0"
     }
 }

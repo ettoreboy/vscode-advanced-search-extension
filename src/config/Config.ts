@@ -17,7 +17,6 @@ export function getSearchProvidersFromConfig(): SearchProviderDefinition[] {
     return CONFIG.get("searchProviders") as SearchProviderDefinition[];
 }
 
-export function getSearchProviderDefinitionByName(name: string): SearchProviderDefinition {
-    return getSearchProvidersFromConfig().find(obj => obj.name === name) || 
-            new SearchProviderDefinition();
+export function getSearchProviderDefinitionByName(name: string): SearchProviderDefinition | undefined {
+    return getSearchProvidersFromConfig().find(obj => obj.name === name);
 }

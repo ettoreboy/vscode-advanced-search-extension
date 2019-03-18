@@ -2,6 +2,7 @@ import * as Config from './config/Config';
 import { window, ExtensionContext, commands } from 'vscode';
 import SearchProviderDefinition from './search/SearchProviderDefinition';
 import { EXTENSION_NAME } from './config/Config';
+import WebSearchProvider from './search/WebSearchProvider';
 
 /**
  * On activation of the extension
@@ -11,11 +12,11 @@ import { EXTENSION_NAME } from './config/Config';
 export function activate(context: ExtensionContext) {
     if (!Config.isValid()) {
         window.showErrorMessage("Web Search: Invalid configuration");
-        return;
     }
 
-    const searchProviders = Config.getSearchProvidersFromConfig();
-    searchProviders.forEach((providerDefinition) => {
+    const searchProviderDefinitions = Config.getSearchProvidersFromConfig();
+
+    searchProviderDefinitions.forEach((providerDefinition) => {
         registerSearchCommand(context, providerDefinition);
     });
 }
@@ -26,7 +27,6 @@ export function activate(context: ExtensionContext) {
  */
 export function deactivate() { }
 
-
 /**
  * Register a search provider using a SearchProviderDefinition
  * @param context ExtensionContext
@@ -34,20 +34,33 @@ export function deactivate() { }
  */
 function registerSearchCommand(context: ExtensionContext, definition: SearchProviderDefinition): void {
     const commandName = definition.name;
-    const className = definition.className;
-    
+
     let disposable = commands.registerCommand(`${EXTENSION_NAME}.${commandName}`, () => {
         // The code you place here will be executed every time your command is executed
         const text = getSelectedText();
-        import(`./search/${className}`)
-            .then(searchProvider => {
-                (new searchProvider.default(definition, text)).open();
-            }).catch(error => {
-                window.showErrorMessage('WebSearch Extension ' + error);
-            });
+        const searchProvider = getSearchProvider(definition);
+
+        searchProvider.open(text);
     });
 
     context.subscriptions.push(disposable);
+}
+
+/**
+ * Retrieves a search provider object instance from the configured search or returns the default one
+ * @param definition 
+ */
+function getSearchProvider(definition: SearchProviderDefinition): WebSearchProvider {
+    if (definition.className) {
+        import(`./search/${definition.className}`)
+            .then(searchProvider => {
+                return new searchProvider.default(definition);
+            }).catch(error => {
+                window.showErrorMessage('WebSearch Extension ' + error);
+            });
+    }
+
+    return new WebSearchProvider(definition);
 }
 
 /**
@@ -55,6 +68,7 @@ function registerSearchCommand(context: ExtensionContext, definition: SearchProv
  */
 function getSelectedText(): string {
     if (!window.activeTextEditor) {
+        //TODO: default for search text box
         return "";
     }
 
