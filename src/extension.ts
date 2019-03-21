@@ -1,6 +1,6 @@
 import * as Config from './config/Config';
 import { window, ExtensionContext, commands } from 'vscode';
-import SearchProviderDefinition from './search/SearchProviderDefinition';
+import WebSearchProviderDefinition from './search/WebSearchProviderDefinition';
 import { EXTENSION_NAME } from './config/Config';
 import WebSearchProvider from './search/WebSearchProvider';
 
@@ -32,7 +32,7 @@ export function deactivate() { }
  * @param context ExtensionContext
  * @param definition SearchProviderDefinition
  */
-function registerSearchCommand(context: ExtensionContext, definition: SearchProviderDefinition): void {
+function registerSearchCommand(context: ExtensionContext, definition: WebSearchProviderDefinition): void {
     const commandName = definition.name;
 
     let disposable = commands.registerCommand(`${EXTENSION_NAME}.${commandName}`, () => {
@@ -50,13 +50,13 @@ function registerSearchCommand(context: ExtensionContext, definition: SearchProv
  * Retrieves a search provider object instance from the configured search or returns the default one
  * @param definition 
  */
-function getSearchProvider(definition: SearchProviderDefinition): WebSearchProvider {
+function getSearchProvider(definition: WebSearchProviderDefinition): WebSearchProvider {
     if (definition.className) {
         import(`./search/${definition.className}`)
             .then(searchProvider => {
                 return new searchProvider.default(definition);
             }).catch(error => {
-                window.showErrorMessage('WebSearch Extension ' + error);
+                window.showErrorMessage('WebSearch Extension provider class not found ' + error);
             });
     }
 

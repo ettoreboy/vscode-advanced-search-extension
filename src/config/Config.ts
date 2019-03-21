@@ -1,5 +1,5 @@
 import { workspace } from 'vscode';
-import SearchProviderDefinition from '../search/SearchProviderDefinition';
+import SearchProviderDefinition from '../search/WebSearchProviderDefinition';
 
 /**
  *  Singleton configuration interface

@@ -3,11 +3,15 @@
 //
 
 import * as assert from 'assert';
-import { isValid } from '../config/Config';
+import { activate, deactivate } from '../extension';
 
 suite("WebSearch Extension tests", function () {
-    
-    test("Test Configuration", () => {
-        assert(isValid());
+
+    test("Activation method is exported", () => {
+         assert(activate);
+    });
+
+    test("Deactivate method is exported", () => {
+         assert(deactivate);
     });
 });

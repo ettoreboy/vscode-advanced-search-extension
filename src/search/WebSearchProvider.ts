@@ -1,6 +1,6 @@
 import { window } from 'vscode';
 import { URL } from 'url';
-import SearchProviderDefinition from './SearchProviderDefinition';
+import WebSearchProviderDefinition from './WebSearchProviderDefinition';
 import { obj_to_map } from '../utils/Utils';
 const opn = require('opn');
 
@@ -18,38 +18,24 @@ export default class WebSearchProvider {
     /**
      * Default worksapce definition for this search provider
      */
-    private _definition: SearchProviderDefinition;
-
-    /**
-     * This provider's name
-     */
-    private _name: string;
+    private definition: WebSearchProviderDefinition;
 
     /**
      * 
      * @param definition Definition of this search provider - must match the command
      * @param searchkey The input text for the search
      */
-    constructor(definition: SearchProviderDefinition) {
-        this._definition = definition;
-        this._name = definition.name;
+    constructor(definition: WebSearchProviderDefinition) {
+        this.definition = definition;
         this.baseUrl = new URL(definition.baseUrl);
-    }
-
-      /**
-     * Returns the name of this provider
-     * @return the selected text string
-     */
-    public getName(): string {
-        return this._name;
     }
 
     /**
      * Builds the '?q' parameter. 
      */
-    protected buildUrl(searchText: string) {
+    protected buildUrl(searchText: string): string {
         this.baseUrl.searchParams.set("q", this.buildQueryParam(searchText));
-        obj_to_map(this._definition.defaultParams).forEach((key, value) => {
+        obj_to_map(this.definition.defaultParams).forEach((key, value) => {
             this.baseUrl.searchParams.set(value, key);
         });
         return this.baseUrl.toString();
@@ -60,8 +46,8 @@ export default class WebSearchProvider {
      */
     protected buildQueryParam(searchText: string): string {
         let queryResult = '';
-        const extraParamsMap = obj_to_map(this._definition.defaultQuery);
-    
+        const extraParamsMap = obj_to_map(this.definition.defaultQuery);
+
         extraParamsMap.forEach((key: string, value: string) => {
             queryResult += ` ${encodeURIComponent(value)}:${encodeURIComponent(key)}`;
         });
@@ -69,20 +55,30 @@ export default class WebSearchProvider {
     }
 
     /**
-     * Open uri in a selected or default browser
+     * Open a file, path or url in the current OS using opn
+     * @param url 
+     * @param browser 
+     */
+    public systemOpen(url: string, browser: string = ''): Promise<any> {
+        return opn(url, { app: browser });
+    }
+
+    /**
+     * Open uri in the default browser
      * @param uri
      * @param browser 
      */
-    public open(searchText:string, browser: string = '') {
+    public open(searchText: string) {
         if (searchText !== '') {
-            opn(this.buildUrl(searchText), { app: browser })
+            const url = this.buildUrl(searchText);
+
+            this.systemOpen(url)
                 .then(() => {
-                    window.showInformationMessage(`Opening web search`);
+                    window.showInformationMessage('Opening web search');
                 })
-                .catch(() => {
-                    window.showErrorMessage('Open browser failed!');
+                .catch((error: any) => {
+                    window.showErrorMessage(`WebSearch open url failed ${error}`);
                 });
         }
     }
-
 }
