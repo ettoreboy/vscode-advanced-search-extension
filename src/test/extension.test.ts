@@ -8,10 +8,10 @@ import { activate, deactivate } from '../extension';
 suite("WebSearch Extension tests", function () {
 
     test("Activation method is exported", () => {
-         assert(activate);
+         assert.ok(activate);
     });
 
     test("Deactivate method is exported", () => {
-         assert(deactivate);
+         assert.ok(deactivate);
     });
 });
