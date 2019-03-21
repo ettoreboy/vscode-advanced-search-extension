@@ -68,8 +68,8 @@
                 "websearch.noInputBoxIfTextSelected": {
                     "title": "No input box if text is selected",
                     "type": "boolean",
-                    "description": "If this is 'true' no input box will appear if selected text is searched.",
-                    "default": false
+                    "description": "If this is 'true' no input box will appear if some text is selected.",
+                    "default": true
                 }
             }
         },
