@@ -68,8 +68,8 @@ export default class WebSearchProvider {
      * @param uri
      * @param browser 
      */
-    public open(searchText: string) {
-        if (searchText !== '') {
+    public open(searchText: string | undefined) {
+        if (searchText && searchText !== '') {
             const url = this.buildUrl(searchText);
 
             this.systemOpen(url)

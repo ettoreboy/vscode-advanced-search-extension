@@ -20,3 +20,7 @@ export function getSearchProvidersFromConfig(): SearchProviderDefinition[] {
 export function getSearchProviderDefinitionByName(name: string): SearchProviderDefinition | undefined {
     return getSearchProvidersFromConfig().find(obj => obj.name === name);
 }
+
+export function shouldUseInputBox(): boolean | undefined {
+    return CONFIG.get("noInputBoxIfTextSelected");
+}

@@ -3,6 +3,7 @@ import { window, ExtensionContext, commands } from 'vscode';
 import WebSearchProviderDefinition from './search/WebSearchProviderDefinition';
 import { EXTENSION_NAME } from './config/Config';
 import WebSearchProvider from './search/WebSearchProvider';
+import InputBox from './inputbox/InputBox';
 
 /**
  * On activation of the extension
@@ -37,10 +38,17 @@ function registerSearchCommand(context: ExtensionContext, definition: WebSearchP
 
     let disposable = commands.registerCommand(`${EXTENSION_NAME}.${commandName}`, () => {
         // The code you place here will be executed every time your command is executed
-        const text = getSelectedText();
         const searchProvider = getSearchProvider(definition);
+        const text = getSelectedText();
+        const inputBox = new InputBox(definition.name);
 
-        searchProvider.open(text);
+        if(!text && Config.shouldUseInputBox()) {
+            inputBox.show().then((text) => {
+                searchProvider.open(text);
+            });
+        } else if(text !== "") {
+            searchProvider.open(text);
+        }
     });
 
     context.subscriptions.push(disposable);
@@ -65,13 +73,11 @@ function getSearchProvider(definition: WebSearchProviderDefinition): WebSearchPr
 
 /**
  * Get the selected text from the currently active editor
+ * @returns the string of text or undefined if there is no active editor with selected text
  */
-function getSelectedText(): string {
-    if (!window.activeTextEditor) {
-        //TODO: default for search text box
-        return "";
+function getSelectedText(): string | undefined {
+    if (window.activeTextEditor) {
+        const { selection } = window.activeTextEditor;
+        return window.activeTextEditor.document.getText(selection);
     }
-
-    const { selection } = window.activeTextEditor;
-    return window.activeTextEditor.document.getText(selection);
 }
