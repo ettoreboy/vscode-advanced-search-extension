@@ -1,9 +1,17 @@
 {
     "name": "vscode-advanced-search",
     "displayName": "vscode-advanced-search",
-    "description": "Advanced web search for vscode",
-    "version": "1.0.0",
-    "publisher": "platinumjesus",
+    "description": "Configurable web search for vscode",
+    "version": "1.2.0",
+    "publisher": "ettoreciprian",
+    "icon": "icons/icon.png",
+    "galleryBanner": {
+        "color": "#008000",
+        "theme": "dark"
+    },
+    "license": "MIT",
+    "repository": {"url": "https://github.com/platinumjesus/vscode-advanced-search-extension", "type": "git"},
+    "homepage": "https://github.com/platinumjesus/vscode-advanced-search-extension/README.md",
     "engines": {
         "vscode": "^1.28.0"
     },
