@@ -1,26 +1,23 @@
-import { workspace } from 'vscode';
+import { workspace, WorkspaceConfiguration } from 'vscode';
 import SearchProviderDefinition from '../search/WebSearchProviderDefinition';
 
-/**
- *  Singleton configuration interface
- */
+const getConfig = (): WorkspaceConfiguration => workspace.getConfiguration(EXTENSION_NAME);
+
 export const EXTENSION_NAME = "websearch";
 
-const CONFIG = workspace.getConfiguration(EXTENSION_NAME);
-
 export function isValid(): boolean {
-    if (!CONFIG.has("searchProviders")) { return false; }
+    if (!getConfig().has("searchProviders")) { return false; }
     return true;
 }
 
 export function getSearchProvidersFromConfig(): SearchProviderDefinition[] {
-    return CONFIG.get("searchProviders") as SearchProviderDefinition[];
+    return getConfig().get("searchProviders") as SearchProviderDefinition[];
 }
 
 export function getSearchProviderDefinitionByName(name: string): SearchProviderDefinition | undefined {
     return getSearchProvidersFromConfig().find(obj => obj.name === name);
 }
 
-export function shouldUseInputBox(): boolean | undefined {
-    return CONFIG.get("noInputBoxIfTextSelected");
+export function isInputBoxActive(): boolean | undefined {
+    return getConfig().get("activateInputBox");
 }

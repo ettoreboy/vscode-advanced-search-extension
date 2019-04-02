@@ -16,9 +16,11 @@ export default class InputBox {
     private options: InputBoxOptions;
 
     constructor(providerName: string) {
-        this.options = { ...DEFAULT_INPUT_OPTIONS, ...{
-            'prompt': `Search something on ${providerName}`
-         } };
+        this.options = {
+            ...DEFAULT_INPUT_OPTIONS, ...{
+                'prompt': `Search something on ${providerName}`
+            }
+        };
     }
 
 
@@ -31,6 +33,6 @@ export default class InputBox {
      * Show the input box
      */
     show(): Thenable<string | undefined> {
-      return window.showInputBox(this.options);
+        return window.showInputBox(this.options);
     }
 }

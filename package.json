@@ -73,10 +73,10 @@
                         }
                     ]
                 },
-                "websearch.noInputBoxIfTextSelected": {
-                    "title": "No input box if text is selected",
+                "websearch.activateInputBox": {
+                    "title": "Enable the input box if not text is selected or there is not editor open",
                     "type": "boolean",
-                    "description": "If this is 'true' no input box will appear if some text is selected.",
+                    "description": "Uncheck this to disable the input box that will appear if no text is selected.",
                     "default": true
                 }
             }
