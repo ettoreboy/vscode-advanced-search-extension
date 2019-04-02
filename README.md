@@ -62,7 +62,7 @@ This extension contributes the following settings:
 }
 ```
 
-`websearch.noInputBoxIfTextSelected` | **boolean** | Don't open an input box if text is selected in an editor. Default is true.
+`websearch.activateInputBox` | **boolean** | Enables an input box if no selected text or active editor is present. Default is *true*.
 
 ## Contribute
 

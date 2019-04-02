@@ -42,11 +42,11 @@ function registerSearchCommand(context: ExtensionContext, definition: WebSearchP
         const text = getSelectedText();
         const inputBox = new InputBox(definition.name);
 
-        if(!text && Config.shouldUseInputBox()) {
+        if (!text && Config.isInputBoxActive()) {
             inputBox.show().then((text) => {
                 searchProvider.open(text);
             });
-        } else if(text !== "") {
+        } else if (text && text !== "") {
             searchProvider.open(text);
         }
     });
