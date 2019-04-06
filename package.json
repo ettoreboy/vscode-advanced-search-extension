@@ -11,7 +11,7 @@
     },
     "license": "MIT",
     "repository": {"url": "https://github.com/platinumjesus/vscode-advanced-search-extension", "type": "git"},
-    "homepage": "https://github.com/platinumjesus/vscode-advanced-search-extension/README.md",
+    "homepage": "https://github.com/platinumjesus/vscode-advanced-search-extension",
     "engines": {
         "vscode": "^1.28.0"
     },
@@ -19,7 +19,10 @@
         "Other"
     ],
     "activationEvents": [
-        "*"
+        "onCommand:websearch.github",
+        "onCommand:websearch.stackoverflow",
+        "onCommand:websearch.google"
+
     ],
     "main": "./out/extension",
     "contributes": {
