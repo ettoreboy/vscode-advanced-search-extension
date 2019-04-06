@@ -4,13 +4,16 @@
     "description": "Configurable web search for vscode",
     "version": "1.2.0",
     "publisher": "ettoreciprian",
-    "icon": "icons/icon.png",
+    "icon": "./icons/icon.png",
     "galleryBanner": {
         "color": "#008000",
         "theme": "dark"
     },
     "license": "MIT",
-    "repository": {"url": "https://github.com/platinumjesus/vscode-advanced-search-extension", "type": "git"},
+    "repository": {
+        "url": "https://github.com/platinumjesus/vscode-advanced-search-extension",
+        "type": "git"
+    },
     "homepage": "https://github.com/platinumjesus/vscode-advanced-search-extension",
     "engines": {
         "vscode": "^1.28.0"
@@ -22,27 +25,62 @@
         "onCommand:websearch.github",
         "onCommand:websearch.stackoverflow",
         "onCommand:websearch.google"
-
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
                 "command": "websearch.github",
-                "title": "Search Github",
+                "title": "Github",
                 "category": "Web Search"
             },
             {
                 "command": "websearch.stackoverflow",
-                "title": "Search StackOverflow",
+                "title": "StackOverflow",
                 "category": "Web Search"
             },
             {
                 "command": "websearch.google",
-                "title": "Search Google",
+                "title": "Google",
                 "category": "Web Search"
             }
         ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "websearch.google",
+                    "when": "editorHasSelection",
+                    "group": "z_commands"
+                },
+                {
+                    "command": "websearch.github",
+                    "when": "editorHasSelection",
+                    "group": "z_commands"
+                },
+                {
+                    "command": "websearch.stackoverflow",
+                    "when": "editorHasSelection",
+                    "group": "z_commands"
+                }
+            ],
+            "touchBar": [
+                {
+                    "command": "websearch.google",
+                    "when": "editorHasSelection",
+                    "group": "search"
+                },
+                {
+                    "command": "websearch.github",
+                    "when": "editorHasSelection",
+                    "group": "search"
+                },
+                {
+                    "command": "websearch.stackoverflow",
+                    "when": "editorHasSelection",
+                    "group": "search"
+                }
+            ]
+        },
         "configuration": {
             "title": "WebSearch Configuration",
             "type": "object",
