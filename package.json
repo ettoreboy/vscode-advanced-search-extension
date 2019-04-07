@@ -4,7 +4,7 @@
     "description": "Open Github, Stackoverflow or Google and search the web with your selected text",
     "version": "1.2.0",
     "publisher": "ettoreciprian",
-    "icon": "./icons/icon.png",
+    "icon": "icons/icon.png",
     "galleryBanner": {
         "color": "#008000",
         "theme": "dark"
