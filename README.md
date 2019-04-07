@@ -1,16 +1,16 @@
-# vscode-advanced-search
+# vscode-websearch
 
 ![Icon](./icons/icon.png)
 
 [![Build Status](https://travis-ci.com/platinumjesus/vscode-advanced-search-extension.svg?token=azxheXqbanZXKBottx4Z&branch=master)](https://travis-ci.com/platinumjesus/vscode-advanced-search-extension)  
 
-A simple web search command that opens a page in your default browser based on your search configurations.
+A simple web search command that opens a page in your default browser based on your search configurations, from selected text in the editor or an input box.
 
 ## Features
 
 - Search github, google or stackoverflow with the editor selected text.
 - Configure a search provider with default advanced parameters.
-- Easily extendible with your own custom search definition.
+- Open an input box when no text is selected.
 
 ## Commands
 
@@ -75,17 +75,7 @@ In case you want to extend the possible search or simply bug fix. Follow [this](
 
 ## Release Notes
 
-### 1.0.0
-
-Added Github and StackOverflow searches
-
-### 1.1.0
-
-Added Google search
-
-### 1.2.0
-
-Added Input box search
+See [changelog](./CHANGELOG.md)
 
 
 MIT © Ettore Ciprian
