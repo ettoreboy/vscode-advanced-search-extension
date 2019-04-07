@@ -1,7 +1,13 @@
-# Change Log
-All notable changes to the "vscode-advanced-search" extension will be documented in this file.
+# Changelog
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+All notable changes to this project will be documented in this file.
 
-## [1.0.0]
-- Initial release
+The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## 1.2.0 - 2019-04-07
+First version
+
+### Added
+- Search Github, Stackoverflow and Google
+- Input box

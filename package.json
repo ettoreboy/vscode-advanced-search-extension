@@ -1,7 +1,7 @@
 {
-    "name": "vscode-advanced-search",
-    "displayName": "vscode-advanced-search",
-    "description": "Configurable web search for vscode",
+    "name": "vscode-websearch",
+    "displayName": "vscode-websearch",
+    "description": "Open Github, Stackoverflow or Google and search the web with your selected text",
     "version": "1.2.0",
     "publisher": "ettoreciprian",
     "icon": "./icons/icon.png",
@@ -142,12 +142,14 @@
         "compile": "tsc --alwaysStrict -p ./",
         "watch": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+        "test": "npm run compile && node ./node_modules/vscode/bin/test",
+        "changelog": "changelog"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.42",
         "@types/node": "^8.10.44",
         "@types/opn": "^5.1.0",
+        "keep-a-changelog": "^0.8.0",
         "ts-mockito": "^2.3.1",
         "tslint": "^5.14.0",
         "typescript": "^2.6.1",
