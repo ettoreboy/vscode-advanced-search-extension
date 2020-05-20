@@ -146,16 +146,16 @@
         "changelog": "changelog"
     },
     "devDependencies": {
-        "@types/mocha": "^2.2.42",
-        "@types/node": "^8.10.59",
-        "@types/opn": "^5.1.0",
-        "keep-a-changelog": "^0.8.3",
-        "ts-mockito": "^2.3.1",
-        "tslint": "^5.20.1",
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.30"
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^14.0.4",
+        "@types/opn": "^5.5.0",
+        "keep-a-changelog": "^0.10.1",
+        "ts-mockito": "^2.5.0",
+        "tslint": "^6.1.2",
+        "typescript": "^3.9.3",
+        "vscode": "^1.1.37"
     },
     "dependencies": {
-        "opn": "^5.5.0"
+        "opn": "^6.0.0"
     }
 }
