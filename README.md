@@ -2,7 +2,7 @@
 
 ![Icon](./icons/icon.png)
 
-[![Build Status](https://travis-ci.com/platinumjesus/vscode-advanced-search-extension.svg?token=azxheXqbanZXKBottx4Z&branch=master)](https://travis-ci.com/platinumjesus/vscode-advanced-search-extension)  
+[![Test Actions Status](https://github.com/platinumjesus/vscode-advanced-search-extension/workflows/test/badge.svg)](https://github.com/platinumjesus/vscode-advanced-search-extension/actions)
 
 A simple web search command that opens a page in your default browser based on your search configurations, from selected text in the editor or an input box.
 
