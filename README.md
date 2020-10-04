@@ -35,7 +35,7 @@ The default commands available with keybindgs
 
 This extension contributes the following settings:
 
-`websearch.searchProvider` | **object** | Search providers definition. You can chose here to customize the default search parameter which will be used when running the relative command. The default values are:
+`websearch.[name]` | **object** | Search providers definition. You can chose here to customize the default search parameter which will be used when running the relative command. The default values are:
 
 ```json
 {
@@ -64,13 +64,13 @@ This extension contributes the following settings:
 
 `websearch.activateInputBox` | **boolean** | Enables an input box if no selected text or active editor is present. Default is *true*.
 
-## Contribute
+## Contribute - Hacktoberfest
 
 In case you want to extend the possible search or simply bug fix. Follow [this](vsc-extension-quickstart.md) to start developing for vscode.
 
 1. Use `npm install` to install the required developer dependencies. This project uses Typescript with default tslint.
 2. Extend the class *src/search/WebSearchProvider* if you think it is necessary with your own url builder logic.
-3. Add the command to package json configuration for websearch.searchproviders and in the 
+3. Add the command to package json configuration for websearch.[command].
 4. Send me a PR ;)
 
 ## Release Notes
