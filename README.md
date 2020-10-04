@@ -2,7 +2,7 @@
 
 ![Icon](./icons/icon.png)
 
-[![Actions Status](https://github.com/{owner}/{repo}/workflows/{workflow_name}/badge.svg)](https://github.com/{owner}/{repo}/actions)
+[![Test Actions Status](https://github.com/platinumjesus/vscode-advanced-search-extension/workflows/test/badge.svg)](https://github.com/platinumjesus/vscode-advanced-search-extension/actions)
 
 A simple web search command that opens a page in your default browser based on your search configurations, from selected text in the editor or an input box.
 
