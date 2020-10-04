@@ -28,7 +28,7 @@ suite("WebSearch Generic Provider test", function () {
 
         //Test
         const [ url ] = capture(webSearchProviderSpy.systemOpen).last();
-        assert.equal(url, expectedUrl, "Builded url does not match");
+        assert.strictEqual(url, expectedUrl, "Builded url does not match");
     });
 
     test("search provider builds url correctly with extra parameters", () => {
@@ -51,6 +51,6 @@ suite("WebSearch Generic Provider test", function () {
 
         //Test
         const [ url ] = capture(webSearchProviderSpy.systemOpen).last();
-        assert.equal(url, expectedUrl, "Builded url does not match");
+        assert.strictEqual(url, expectedUrl, "Builded url does not match");
     });
 });

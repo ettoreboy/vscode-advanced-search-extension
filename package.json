@@ -85,40 +85,69 @@
             "title": "WebSearch Configuration",
             "type": "object",
             "properties": {
-                "websearch.searchProviders": {
-                    "title": "Search providers",
-                    "type": "array",
-                    "description": "An array with search engines, mapping a provider to a search url and its options.",
-                    "default": [
-                        {
-                            "name": "github",
-                            "baseUrl": "https://github.com/search",
-                            "defaultQuery": {},
-                            "defaultParams": {
-                                "type": "code"
-                            }
-                        },
-                        {
-                            "name": "stackoverflow",
-                            "baseUrl": "https://stackoverflow.com/search",
-                            "defaultQuery": {
-                                "is": "answer"
-                            },
-                            "defaultParams": {}
-                        },
-                        {
-                            "name": "google",
-                            "baseUrl": "https://www.google.com/search",
-                            "defaultQuery": {},
-                            "defaultParams": {}
+                "websearch.google": {
+                    "title": "Google search command",
+                    "type": "object",
+                    "default": {
+                        "name": "google",
+                        "baseUrl": "https://google.com/search",
+                        "defaultQuery": {},
+                        "defaultParams": {}
+                    }
+                },
+                "websearch.github": {
+                    "title": "Github search command",
+                    "type": "object",
+                    "default": {
+                        "name": "github",
+                        "baseUrl": "https://github.com/search",
+                        "defaultQuery": {},
+                        "defaultParams": {
+                            "type": "code"
                         }
-                    ]
+                    }
+                },
+                "websearch.stackoverflow": {
+                    "title": "Stackoverflow search command",
+                    "type": "object",
+                    "default": {
+                        "name": "stackoverflow",
+                        "baseUrl": "https://stackoverflow.com/search",
+                        "defaultQuery": {
+                            "is": "answer"
+                        },
+                        "defaultParams": {}
+                    }
+                },
+                "websearch.customSearchProvider": {
+                    "title": "Search providers",
+                    "type": "object",
+                    "description": "A custom search provider",
+                    "default": {
+                        "name": "customwebsearch",
+                        "baseUrl": "",
+                        "defaultQuery": {},
+                        "defaultParams": {}
+                    }
                 },
                 "websearch.activateInputBox": {
                     "title": "Enable the input box if not text is selected or there is not editor open",
                     "type": "boolean",
                     "description": "Uncheck this to disable the input box that will appear if no text is selected.",
                     "default": true
+                },
+                "websearch.defaultBrowser": {
+                    "type": "string",
+                    "description": "The default browser, options are: system|firefox|brave|google-chrome|safari",
+                    "default": "system",
+                    "pattern": "system|firefox|brave|google-chrome|safari"
+                },
+                "websearch.searchProviders": {
+                    "title": "Deprecated Search providers",
+                    "type": "array",
+                    "description": "A list of search provider",
+                    "default": [],
+                    "deprecationMessage": "This property has been depreacted in favour of custom or individual properties. Please read: https://github.com/platinumjesus/vscode-advanced-search-extension"
                 }
             }
         },
@@ -146,16 +175,14 @@
         "changelog": "changelog"
     },
     "devDependencies": {
-        "@types/mocha": "^7.0.2",
-        "@types/node": "^14.0.4",
-        "@types/opn": "^5.5.0",
+        "@types/mocha": "^8.0.0",
+        "@types/node": "^14.0.27",
         "keep-a-changelog": "^0.10.1",
-        "ts-mockito": "^2.5.0",
-        "tslint": "^6.1.2",
-        "typescript": "^3.9.3",
+        "ts-mockito": "^2.6.1",
+        "typescript": "^3.9.7",
         "vscode": "^1.1.37"
     },
     "dependencies": {
-        "opn": "^6.0.0"
+        "open": "^7.2.1"
     }
 }

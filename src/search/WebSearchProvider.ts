@@ -2,7 +2,7 @@ import { window } from 'vscode';
 import { URL } from 'url';
 import WebSearchProviderDefinition from './WebSearchProviderDefinition';
 import { obj_to_map } from '../utils/Utils';
-const opn = require('opn');
+const open = require('open');
 
 /**
  * Generic for a web search builder
@@ -46,6 +46,7 @@ export default class WebSearchProvider {
      */
     protected buildQueryParam(searchText: string): string {
         let queryResult = '';
+
         const extraParamsMap = obj_to_map(this.definition.defaultQuery);
 
         extraParamsMap.forEach((key: string, value: string) => {
@@ -59,8 +60,8 @@ export default class WebSearchProvider {
      * @param url 
      * @param browser 
      */
-    public systemOpen(url: string, browser: string = ''): Promise<any> {
-        return opn(url, { app: browser });
+    public async systemOpen(url: string, browser: string = ''): Promise<any> {
+        return await open(url, { app: browser });
     }
 
     /**

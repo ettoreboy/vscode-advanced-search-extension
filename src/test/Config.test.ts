@@ -10,8 +10,6 @@ suite("WebSearch Config tests", function () {
     });
 
     test("Test Configuration exported name", () => {
-        assert.equal(EXTENSION_NAME, "websearch", "Extension name does not match");
+        assert.strictEqual(EXTENSION_NAME, "websearch", "Extension name does not match");
     });
-
-    //TODO: Add json schema test for configuration
 });

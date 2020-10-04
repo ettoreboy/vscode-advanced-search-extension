@@ -8,6 +8,6 @@ suite('InputBox test', () => {
         inputBox = new InputBox('Google');
 
         assert.ok(inputBox);
-        assert.equal(inputBox.getOptions().prompt, "Search something on Google", "Prompt message is wrong");
+        assert.strictEqual(inputBox.getOptions().prompt, "Search something on Google", "Prompt message is wrong");
     });
 });
