@@ -5,13 +5,22 @@ const getConfig = (): WorkspaceConfiguration => workspace.getConfiguration(EXTEN
 
 export const EXTENSION_NAME = "websearch";
 
+const SEARCH_PROVIDERS = ["google", "github", "stackoverflow"];
+
 export function isValid(): boolean {
-    if (!getConfig().has("searchProviders")) { return false; }
-    return true;
+    const searchProviders = getSearchProvidersFromConfig();
+    return searchProviders.length > 0;
 }
 
 export function getSearchProvidersFromConfig(): SearchProviderDefinition[] {
-    return getConfig().get("searchProviders") as SearchProviderDefinition[];
+    const searchProviderConfigs = [];
+    const CONFIG = getConfig();
+
+    for (const providerName of SEARCH_PROVIDERS) {
+        searchProviderConfigs.push(CONFIG.get(providerName) as SearchProviderDefinition);
+    }
+
+    return searchProviderConfigs;
 }
 
 export function getSearchProviderDefinitionByName(name: string): SearchProviderDefinition | undefined {
@@ -20,4 +29,8 @@ export function getSearchProviderDefinitionByName(name: string): SearchProviderD
 
 export function isInputBoxActive(): boolean | undefined {
     return getConfig().get("activateInputBox");
+}
+
+export function getDefaultBrowser(): string | undefined {
+    return getConfig().get("defaultBrowser");
 }
