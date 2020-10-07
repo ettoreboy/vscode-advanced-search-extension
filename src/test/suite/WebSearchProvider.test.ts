@@ -1,7 +1,7 @@
 import { spy, when, verify, capture, anyString } from 'ts-mockito';
-import WebSearchProvider from '../search/WebSearchProvider';
-import SearchProviderDefinition from '../search/WebSearchProviderDefinition';
-import SearchProviderDefinitionImplTest from './mocks/SearchProviderDefinitionTest';
+import WebSearchProvider from '../../search/WebSearchProvider';
+import SearchProviderDefinition from '../../search/WebSearchProviderDefinition';
+import SearchProviderDefinitionImplTest from '../mocks/SearchProviderDefinitionTest';
 import * as assert from 'assert';
 
 suite("WebSearch Generic Provider test", function () {
@@ -27,7 +27,7 @@ suite("WebSearch Generic Provider test", function () {
         webSearchProvider.open(testSearch);
 
         //Test
-        const [ url ] = capture(webSearchProviderSpy.systemOpen).last();
+        const [url] = capture(webSearchProviderSpy.systemOpen).last();
         assert.strictEqual(url, expectedUrl, "Builded url does not match");
     });
 
@@ -35,10 +35,10 @@ suite("WebSearch Generic Provider test", function () {
         //Prepare
         const testSearch = "Test";
         providerDefinition.defaultParams = {
-            "param" : "testParameter"
+            "param": "testParameter"
         };
         providerDefinition.defaultQuery = {
-            "query" : "extraQuery"
+            "query": "extraQuery"
         };
         const expectedUrl = `${providerDefinition.baseUrl}/?q=${testSearch}+query%3AextraQuery&param=testParameter`;
         webSearchProvider = new WebSearchProvider(providerDefinition);
@@ -50,7 +50,7 @@ suite("WebSearch Generic Provider test", function () {
         webSearchProvider.open(testSearch);
 
         //Test
-        const [ url ] = capture(webSearchProviderSpy.systemOpen).last();
+        const [url] = capture(webSearchProviderSpy.systemOpen).last();
         assert.strictEqual(url, expectedUrl, "Builded url does not match");
     });
 });

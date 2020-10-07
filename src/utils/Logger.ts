@@ -1,1 +1,0 @@
-//TODO: Logger class for collecting errors

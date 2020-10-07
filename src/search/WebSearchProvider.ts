@@ -2,7 +2,8 @@ import { window } from 'vscode';
 import { URL } from 'url';
 import WebSearchProviderDefinition from './WebSearchProviderDefinition';
 import { obj_to_map } from '../utils/Utils';
-const open = require('open');
+
+import open = require('open');
 
 /**
  * Generic for a web search builder
@@ -60,7 +61,7 @@ export default class WebSearchProvider {
      * @param url 
      * @param browser 
      */
-    public async systemOpen(url: string, browser: string = ''): Promise<any> {
+    public async systemOpen(url: string, browser = ''): Promise<any> {
         return await open(url, { app: browser });
     }
 

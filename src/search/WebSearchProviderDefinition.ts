@@ -20,17 +20,18 @@ export default interface SearchProviderDefinition {
      * The map of the default first component of the baseUrl
      * @example q=text or /authors
      */
-    defaultQuery: Object;
+    defaultQuery: Record<string, string>;
 
     /**
      * The map of any additional & parameters
      * @example type=code
      */
-    defaultParams: Object;
+    defaultParams: Record<string, string>;
 
     /**
      * The base url of the search provider
      * @example https://www.google.com/search
      */
     baseUrl: string;
+// eslint-disable-next-line semi
 }
