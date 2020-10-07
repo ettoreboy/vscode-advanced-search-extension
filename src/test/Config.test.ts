@@ -1,5 +1,3 @@
-
-
 import * as assert from 'assert';
 import { isValid, EXTENSION_NAME } from '../config/Config';
 
