@@ -3,15 +3,15 @@
 //
 
 import * as assert from 'assert';
-import { activate, deactivate } from '../extension';
+import { activate, deactivate } from '../../extension';
 
 suite("WebSearch Extension tests", function () {
 
     test("Activation method is exported", () => {
-         assert.ok(activate);
+        assert.ok(activate);
     });
 
     test("Deactivate method is exported", () => {
-         assert.ok(deactivate);
+        assert.ok(deactivate);
     });
 });

@@ -25,7 +25,9 @@ export function activate(context: ExtensionContext) {
  * This method is called when your extension is deactivated
  * @override
  */
-export function deactivate() { }
+export function deactivate() {
+    console.log("Deactivating websearch");
+}
 
 /**
  * Register a search provider using a SearchProviderDefinition
@@ -35,7 +37,7 @@ export function deactivate() { }
 function registerSearchCommand(context: ExtensionContext, definition: WebSearchProviderDefinition): void {
     const commandName = definition.name;
 
-    let disposable = commands.registerCommand(`${Config.EXTENSION_NAME}.${commandName}`, () => {
+    const disposable = commands.registerCommand(`${Config.EXTENSION_NAME}.${commandName}`, () => {
         // The code you place here will be executed every time your command is executed
         const searchProvider = getSearchProvider(definition);
         const text = getSelectedText();

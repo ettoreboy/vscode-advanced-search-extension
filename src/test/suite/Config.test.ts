@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { isValid, EXTENSION_NAME } from '../config/Config';
+import { isValid, EXTENSION_NAME } from '../../config/Config';
 
 suite("WebSearch Config tests", function () {
 

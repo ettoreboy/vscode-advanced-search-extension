@@ -64,4 +64,4 @@ export default class BrowserDeterminator {
         return browserName;
     }
 
-};
+}

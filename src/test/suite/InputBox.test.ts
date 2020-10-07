@@ -1,4 +1,4 @@
-import InputBox from '../inputbox/InputBox';
+import InputBox from '../../inputbox/InputBox';
 import * as assert from 'assert';
 
 suite('InputBox test', () => {

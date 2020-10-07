@@ -1,30 +1,38 @@
 import { strictEqual } from 'assert';
-import BrowserDeterminator from '../config/BrowserDeterminator';
+import BrowserDeterminator from '../../config/BrowserDeterminator';
 
-let origPlatform = process.platform;
+const origPlatform = process.platform;
 
-function mockPlatform(platform: string = "linux") {
+function mockPlatform(platform = "linux") {
     Object.defineProperty(process, 'platform', {
         value: platform
     });
-};
+}
 
 function restorePlatform() {
     Object.defineProperty(process, 'platform', {
         value: origPlatform
     });
-};
+}
 
 suite("BrowserDeterminator tests", function () {
 
-    afterEach(() => {
+    test("Browser resolves undefined when empty or system option is passed", () => {   
+        mockPlatform();
+            
+        strictEqual(BrowserDeterminator.getOSBrowserName(""), undefined);
+
+        strictEqual(BrowserDeterminator.getOSBrowserName("system"), undefined);
+
         restorePlatform();
     });
 
-    test("Browser resolves null when invalid or system option is passed", () => {   
+    test("Browser resolves undefined if key does not exists", () => {   
         mockPlatform();
             
-        strictEqual(BrowserDeterminator.getOSBrowserName("firefox"), "firefox");
+        strictEqual(BrowserDeterminator.getOSBrowserName("trololo"), undefined);
+
+        restorePlatform();
     });
 
     test("Browser resolves in linux", () => {
@@ -37,5 +45,7 @@ suite("BrowserDeterminator tests", function () {
         mockPlatform("darwin");
 
         strictEqual(BrowserDeterminator.getOSBrowserName("google-chrome"), "Google Chrome");
+
+        restorePlatform();
     });
 });
