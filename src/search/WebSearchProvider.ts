@@ -62,7 +62,7 @@ export default class WebSearchProvider {
      * @param browser 
      */
     public async systemOpen(url: string, browser = ''): Promise<any> {
-        return await open(url, { app: browser });
+        return await open(url, { app: { name: browser } });
     }
 
     /**

@@ -27,10 +27,10 @@ suite("BrowserDeterminator tests", function () {
         restorePlatform();
     });
 
-    test("Browser resolves undefined if key does not exists", () => {   
+    test("Browser resolves to default if key does not exists", () => {   
         mockPlatform();
             
-        strictEqual(BrowserDeterminator.getOSBrowserName("trololo"), undefined);
+        strictEqual(BrowserDeterminator.getOSBrowserName("trololo"), ["system", ""]);
 
         restorePlatform();
     });
@@ -38,13 +38,24 @@ suite("BrowserDeterminator tests", function () {
     test("Browser resolves in linux", () => {
         mockPlatform();
 
-        strictEqual(BrowserDeterminator.getOSBrowserName("firefox"), "firefox");
+        strictEqual(BrowserDeterminator.getOSBrowserName("firefox"), ["firefox", undefined]);
+
+        restorePlatform();
     });
 
     test("Browser resolves in MacOs", () => {
         mockPlatform("darwin");
 
-        strictEqual(BrowserDeterminator.getOSBrowserName("google-chrome"), "Google Chrome");
+        strictEqual(BrowserDeterminator.getOSBrowserName("google-chrome"), ["Google Chrome", undefined]);
+
+        restorePlatform();
+    });
+
+
+    test("Browser resolves in MacOs", () => {
+        mockPlatform("win32");
+
+        strictEqual(BrowserDeterminator.getOSBrowserName("google-chrome"), ["Google Chrome", undefined]);
 
         restorePlatform();
     });

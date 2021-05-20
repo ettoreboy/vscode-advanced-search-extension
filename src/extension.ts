@@ -11,7 +11,8 @@ import InputBox from './inputbox/InputBox';
  */
 export function activate(context: ExtensionContext) {
     if (!Config.isValid()) {
-        window.showErrorMessage("Web Search: Invalid configuration. The configuration has been updated recently: please follow the new guideline.");
+        window.showErrorMessage("Web Search: Invalid configuration. Please check out the docs at https://github.com/platinumjesus/vscode-advanced-search-extension.");
+        return;
     }
 
     const searchProviderDefinitions = Config.getSearchProvidersFromConfig();
@@ -39,7 +40,7 @@ function registerSearchCommand(context: ExtensionContext, definition: WebSearchP
 
     const disposable = commands.registerCommand(`${Config.EXTENSION_NAME}.${commandName}`, () => {
         // The code you place here will be executed every time your command is executed
-        const searchProvider = getSearchProvider(definition);
+        const searchProvider = new WebSearchProvider(definition);
         const text = getSelectedText();
 
         if (!text && Config.isInputBoxActive()) {
@@ -53,14 +54,6 @@ function registerSearchCommand(context: ExtensionContext, definition: WebSearchP
     });
 
     context.subscriptions.push(disposable);
-}
-
-/**
- * Retrieves a search provider object instance
- * @param definition 
- */
-function getSearchProvider(definition: WebSearchProviderDefinition): WebSearchProvider {
-    return new WebSearchProvider(definition);
 }
 
 /**
