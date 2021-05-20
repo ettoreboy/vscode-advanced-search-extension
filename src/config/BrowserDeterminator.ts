@@ -32,11 +32,9 @@ const Config: Config = {
  */
 export default class BrowserDeterminator {
 
-    private static platform = process.platform;
-
     private static getOptions(): Option {
         try {
-            return Config[this.platform];
+            return Config[process.platform];
         } catch (e) {
             return LinuxBrowserOption;
         }
@@ -55,11 +53,14 @@ export default class BrowserDeterminator {
         }
 
         const options = this.getOptions();
-
         try {
-            return [options[name], undefined];
+            const systemBrowserName = options[name];
+            if (!systemBrowserName) {
+                throw new Error("Not found");
+            }
+            return [systemBrowserName, undefined];
         } catch (error) {
-            const msg = `Invalid browser configuration: ${name} valid options are: ${Object.keys(LinuxBrowserOption)}`;
+            const msg = `Invalid browser configuration ${name} - valid options are: ${Object.keys(LinuxBrowserOption)}`;
             return [SystemOption, msg];
         }
     }

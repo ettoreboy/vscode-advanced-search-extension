@@ -62,19 +62,19 @@ export default class WebSearchProvider {
      * @param browser 
      */
     public async systemOpen(url: string, browser = ''): Promise<any> {
-        return await open(url, { app: { name: browser } });
+        return open(url, { app: { name: browser } });
     }
 
     /**
-     * Open uri in the default browser
-     * @param uri
-     * @param browser 
+     * Open searchText in the default browser
+     * @param searchText
+     * @param options.browser 
      */
-    public open(searchText: string | undefined) {
+    public open(searchText?: string, options?: {browser?: string}) {
         if (searchText && searchText !== '') {
             const url = this.buildUrl(searchText);
 
-            this.systemOpen(url)
+            this.systemOpen(url, options?.browser)
                 .then(() => {
                     window.showInformationMessage('Opening web search');
                 })

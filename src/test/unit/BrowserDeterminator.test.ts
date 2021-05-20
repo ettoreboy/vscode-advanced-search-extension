@@ -29,8 +29,11 @@ suite("BrowserDeterminator tests", function () {
 
     test("Browser resolves to default if key does not exists", () => {   
         mockPlatform();
-            
-        strictEqual(BrowserDeterminator.getOSBrowserName("trololo"), ["system", ""]);
+        
+        const browser = BrowserDeterminator.getOSBrowserName("trololo");
+
+        strictEqual(browser?.[0], "system");
+        strictEqual(browser?.[1], "Invalid browser configuration trololo - valid options are: google-chrome,firefox,safari,brave");
 
         restorePlatform();
     });
@@ -38,7 +41,9 @@ suite("BrowserDeterminator tests", function () {
     test("Browser resolves in linux", () => {
         mockPlatform();
 
-        strictEqual(BrowserDeterminator.getOSBrowserName("firefox"), ["firefox", undefined]);
+        const browser = BrowserDeterminator.getOSBrowserName("firefox");
+
+        strictEqual(browser?.[0], "firefox");
 
         restorePlatform();
     });
@@ -46,16 +51,20 @@ suite("BrowserDeterminator tests", function () {
     test("Browser resolves in MacOs", () => {
         mockPlatform("darwin");
 
-        strictEqual(BrowserDeterminator.getOSBrowserName("google-chrome"), ["Google Chrome", undefined]);
+        const browser = BrowserDeterminator.getOSBrowserName("google-chrome");
+
+        strictEqual(browser?.[0], "Google Chrome");
 
         restorePlatform();
     });
 
 
-    test("Browser resolves in MacOs", () => {
+    test("Browser resolves in Windows", () => {
         mockPlatform("win32");
 
-        strictEqual(BrowserDeterminator.getOSBrowserName("google-chrome"), ["Google Chrome", undefined]);
+        const browser = BrowserDeterminator.getOSBrowserName("google-chrome");
+
+        strictEqual(browser?.[0], "Google Chrome");
 
         restorePlatform();
     });
