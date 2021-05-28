@@ -41,9 +41,13 @@ suite("BrowserDeterminator tests", function () {
     test("Browser resolves in linux", () => {
         mockPlatform();
 
-        const browser = BrowserDeterminator.getOSBrowserName("firefox");
+        let browser = BrowserDeterminator.getOSBrowserName("firefox");
 
         strictEqual(browser?.[0], "firefox");
+
+        browser = BrowserDeterminator.getOSBrowserName("google-chrome");
+
+        strictEqual(browser?.[0], "google-chrome");
 
         restorePlatform();
     });

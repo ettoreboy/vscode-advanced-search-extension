@@ -1,9 +1,12 @@
+import open = require("open");
+
 type Option = Record<string, string>
 type Config = Record<string, Option>
 
+
 const LinuxBrowserOption: Option = {
-    "google-chrome": "google-chrome",
-    "firefox": "firefox",
+    "google-chrome": open.apps.chrome[0],
+    "firefox": open.apps.firefox.toString(),
     "safari": "safari",
     "brave": "brave",
 };
@@ -21,7 +24,6 @@ const SystemOption = "system";
 const Config: Config = {
     'win32': WindowsBrowserOption,
     'darwin': MacBrowserOption,
-    'openbsd': LinuxBrowserOption,
     'linux': LinuxBrowserOption
 };
 
@@ -53,6 +55,7 @@ export default class BrowserDeterminator {
         }
 
         const options = this.getOptions();
+
         try {
             const systemBrowserName = options[name];
             if (!systemBrowserName) {
