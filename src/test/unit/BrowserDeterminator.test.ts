@@ -17,12 +17,12 @@ function restorePlatform() {
 
 suite("BrowserDeterminator tests", function () {
 
-    test("Browser resolves undefined when empty or system option is passed", () => {   
+    test("Browser resolves to default when empty or system option is passed", () => {   
         mockPlatform();
-            
-        strictEqual(BrowserDeterminator.getOSBrowserName(""), undefined);
 
-        strictEqual(BrowserDeterminator.getOSBrowserName("system"), undefined);
+        const browser = BrowserDeterminator.getOSBrowserName("");
+            
+        strictEqual(browser?.[0], "system");
 
         restorePlatform();
     });

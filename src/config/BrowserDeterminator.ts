@@ -43,15 +43,18 @@ export default class BrowserDeterminator {
 
     }
 
+    public static getDefault(): string {
+        return SystemOption;
+    }
+
     /**
-     * Return the system dependent name of the browser app.
-     * Returns null if not found or system default option is used.
+     * Return the system dependent name of the browser app and a message.
      * @param name
-     * @returns [browserName, err]
+     * @returns [browserName, err] - err is optional
      */
-    public static getOSBrowserName(name: string): [string?, string?] | undefined {
+    public static getOSBrowserName(name: string | undefined): [string, string?] {
         if (!name || name.length <= 0 || name === SystemOption) {
-            return;
+            return [SystemOption, undefined];
         }
 
         const options = this.getOptions();

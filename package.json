@@ -120,17 +120,6 @@
                         "defaultParams": {}
                     }
                 },
-                "websearch.customSearchProvider": {
-                    "title": "Search providers",
-                    "type": "object",
-                    "description": "A custom search provider",
-                    "default": {
-                        "name": "customwebsearch",
-                        "baseUrl": "",
-                        "defaultQuery": {},
-                        "defaultParams": {}
-                    }
-                },
                 "websearch.activateInputBox": {
                     "title": "Enable the input box if not text is selected or there is not editor open",
                     "type": "boolean",

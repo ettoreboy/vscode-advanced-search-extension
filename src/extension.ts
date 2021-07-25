@@ -6,13 +6,12 @@ import InputBox from './inputbox/InputBox';
 
 /**
  * On activation of the extension
- * @param context
+ * @param context ExtensionContext
  * @override
  */
 export function activate(context: ExtensionContext) {
-    if (!Config.isValid()) {
-        window.showErrorMessage("Web Search: Invalid configuration. Please check out the docs at https://github.com/platinumjesus/vscode-advanced-search-extension.");
-        return;
+    if (Config.isDeprecated()) {
+        window.showWarningMessage("Web Search: deprecated configuration. Please check how to migrate in the docs at https://github.com/platinumjesus/vscode-advanced-search-extension.");
     }
 
     const searchProviderDefinitions = Config.getSearchProvidersFromConfig();
@@ -27,13 +26,13 @@ export function activate(context: ExtensionContext) {
  * @override
  */
 export function deactivate() {
-    console.log("Deactivating websearch");
+    console.debug("Deactivating websearch");
 }
 
 /**
  * Register a search provider using a SearchProviderDefinition
  * @param context ExtensionContext
- * @param definition SearchProviderDefinition
+ * @param definition WebSearchProviderDefinition
  */
 function registerSearchCommand(context: ExtensionContext, definition: WebSearchProviderDefinition): void {
     const commandName = definition.name;
@@ -42,14 +41,16 @@ function registerSearchCommand(context: ExtensionContext, definition: WebSearchP
         // The code you place here will be executed every time your command is executed
         const searchProvider = new WebSearchProvider(definition);
         const text = getSelectedText();
+        
+        const browser = Config.getDefaultBrowser();
 
         if (!text && Config.isInputBoxActive()) {
             const inputBox = new InputBox(definition.name);
             inputBox.show().then((text) => {
-                searchProvider.open(text);
+                searchProvider.open(text, {browser});
             });
         } else if (text && text !== "") {
-            searchProvider.open(text);
+            searchProvider.open(text, {browser});
         }
     });
 
