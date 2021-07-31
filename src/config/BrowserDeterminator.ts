@@ -6,7 +6,7 @@ type Config = Record<string, Option>
 
 const LinuxBrowserOption: Option = {
     "google-chrome": open.apps.chrome[0],
-    "firefox": open.apps.firefox.toString(),
+    "firefox": "firefox",
     "safari": "safari",
     "brave": "brave",
 };
