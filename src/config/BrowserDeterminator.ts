@@ -1,11 +1,9 @@
-import open = require("open");
-
 type Option = Record<string, string>
 type Config = Record<string, Option>
 
 
 const LinuxBrowserOption: Option = {
-    "google-chrome": open.apps.chrome[0],
+    "google-chrome": "google-chrome",
     "firefox": "firefox",
     "safari": "safari",
     "brave": "brave",
