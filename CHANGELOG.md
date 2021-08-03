@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0 - 2021-06-26
+Breaking changes in configuration and browser selection option
+
+### Added
+- 
 ## 1.3.0 - 2020-10-04
 Better configuration and use open instead of opn
 

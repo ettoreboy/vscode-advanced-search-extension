@@ -31,7 +31,7 @@ The default commands available with keybindgs
 }
 ```
 
-## Extension Settings
+## Extension Settings - v2
 
 This extension contributes the following settings:
 
@@ -63,6 +63,9 @@ This extension contributes the following settings:
 ```
 
 `websearch.activateInputBox` | **boolean** | Enables an input box if no selected text or active editor is present. Default is *true*.
+
+`websearch.defaultBrowser` | **string** |  Configure the default browser of choice when opening a search. Default is *system*. Options: system|firefox|brave|google-chrome|safari.
+
 
 ## Contribute - Hacktoberfest
 

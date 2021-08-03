@@ -1,4 +1,4 @@
-import { spy, when, verify, capture, anyString } from 'ts-mockito';
+import { spy, when, verify, capture, anything } from 'ts-mockito';
 import WebSearchProvider from '../../search/WebSearchProvider';
 import SearchProviderDefinition from '../../search/WebSearchProviderDefinition';
 import SearchProviderDefinitionImplTest from '../mocks/SearchProviderDefinitionTest';
@@ -21,7 +21,7 @@ suite("WebSearch Generic Provider test", function () {
         webSearchProvider = new WebSearchProvider(providerDefinition);
 
         const webSearchProviderSpy = spy(webSearchProvider);
-        when(webSearchProviderSpy.systemOpen(anyString())).thenResolve();
+        when(webSearchProviderSpy.systemOpen(anything(), anything())).thenResolve();
 
         //Execute
         webSearchProvider.open(testSearch);
@@ -44,7 +44,7 @@ suite("WebSearch Generic Provider test", function () {
         webSearchProvider = new WebSearchProvider(providerDefinition);
 
         const webSearchProviderSpy = spy(webSearchProvider);
-        when(webSearchProviderSpy.systemOpen(anyString())).thenResolve();
+        when(webSearchProviderSpy.systemOpen(anything(), anything())).thenResolve();
 
         //Execute
         webSearchProvider.open(testSearch);
