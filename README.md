@@ -78,4 +78,4 @@ In case you want to extend the possible search or simply bug fix. Follow [this](
 See [changelog](./CHANGELOG.md)
 
 
-MIT © Ettore Ciprian
+MIT © [ettoreboy](https://github.com/ettoreboy)
