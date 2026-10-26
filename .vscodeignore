@@ -9,3 +9,5 @@ src/**
 eslint.config.mjs
 tsconfig.json
 vsc-extension-quickstart.md
+.env
+.env.*
