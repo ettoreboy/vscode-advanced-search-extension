@@ -2,9 +2,8 @@ import WebSearchProviderDefinition from '../../search/WebSearchProviderDefinitio
 
 export default class SearchProviderDefinitionTest implements WebSearchProviderDefinition {
     name = "TestProvider";
-    className!: string;
     defaultQuery = {};
     defaultParams = {};
     baseUrl = "http://www.test.com";
-    
+
 }

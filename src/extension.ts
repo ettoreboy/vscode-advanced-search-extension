@@ -14,10 +14,8 @@ export function activate(context: ExtensionContext) {
         window.showErrorMessage("Web Search: Invalid configuration. The configuration has been updated recently: please follow the new guideline.");
     }
 
-    const searchProviderDefinitions = Config.getSearchProvidersFromConfig();
-
-    searchProviderDefinitions.forEach((providerDefinition) => {
-        registerSearchCommand(context, providerDefinition);
+    Config.SEARCH_PROVIDER_KEYS.forEach((providerKey) => {
+        registerSearchCommand(context, providerKey);
     });
 }
 
@@ -30,29 +28,50 @@ export function deactivate() {
 }
 
 /**
- * Register a search provider using a SearchProviderDefinition
+ * Register a search command for a search provider configuration key.
+ * Every contributed command is registered, including providers that are not
+ * configured yet, so running one reports the problem instead of failing with
+ * "command not found".
  * @param context ExtensionContext
- * @param definition SearchProviderDefinition
+ * @param providerKey the configuration key, e.g. github
  */
-function registerSearchCommand(context: ExtensionContext, definition: WebSearchProviderDefinition): void {
-    const commandName = definition.name;
+function registerSearchCommand(context: ExtensionContext, providerKey: string): void {
+    const commandId = `${Config.EXTENSION_NAME}.${providerKey}`;
 
-    const disposable = commands.registerCommand(`${Config.EXTENSION_NAME}.${commandName}`, () => {
-        // The code you place here will be executed every time your command is executed
-        const searchProvider = getSearchProvider(definition);
-        const text = getSelectedText();
+    const disposable = commands.registerCommand(commandId, () => {
+        // Read on every run so a settings change applies without a reload.
+        const definition = Config.getSearchProviderDefinitionByKey(providerKey);
 
-        if (!text && Config.isInputBoxActive()) {
-            const inputBox = new InputBox(definition.name);
-            inputBox.show().then((text) => {
-                searchProvider.open(text);
-            });
-        } else if (text && text !== "") {
-            searchProvider.open(text);
+        if (!definition) {
+            window.showErrorMessage(`Web Search: '${commandId}' has no valid baseUrl configured.`);
+            return;
         }
+
+        runSearch(definition);
     });
 
     context.subscriptions.push(disposable);
+}
+
+/**
+ * Search the selected text, falling back to the input box when there is none
+ * @param definition SearchProviderDefinition
+ */
+function runSearch(definition: WebSearchProviderDefinition): void {
+    const searchProvider = getSearchProvider(definition);
+    const text = getSelectedText();
+
+    if (text && text.trim() !== '') {
+        searchProvider.open(text);
+        return;
+    }
+
+    if (Config.isInputBoxActive()) {
+        const inputBox = new InputBox(definition.name);
+        inputBox.show().then((input) => {
+            searchProvider.open(input);
+        });
+    }
 }
 
 /**

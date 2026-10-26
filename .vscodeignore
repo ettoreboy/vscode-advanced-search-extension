@@ -1,9 +1,11 @@
+.github/**
 .vscode/**
 .vscode-test/**
 out/test/**
 out/**/*.map
 src/**
+.gitattributes
 .gitignore
+eslint.config.mjs
 tsconfig.json
 vsc-extension-quickstart.md
-tslint.json

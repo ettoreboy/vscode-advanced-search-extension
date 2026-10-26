@@ -2,7 +2,7 @@
     "name": "vscode-websearch",
     "displayName": "vscode-websearch",
     "description": "Open Github, Stackoverflow or Google and search the web with your selected text",
-    "version": "1.3.1",
+    "version": "1.4.0",
     "publisher": "ettoreciprian",
     "icon": "icons/icon.png",
     "galleryBanner": {
@@ -14,10 +14,13 @@
         "url": "https://github.com/ettoreboy/vscode-advanced-search-extension",
         "type": "git"
     },
-    "homepage": "https://github.com/platinumjesus/vscode-advanced-search-extension",
+    "homepage": "https://github.com/ettoreboy/vscode-advanced-search-extension",
+    "bugs": {
+        "url": "https://github.com/ettoreboy/vscode-advanced-search-extension/issues"
+    },
     "engines": {
         "vscode": "^1.28.0",
-        "node": ">=12.0.0"
+        "node": ">=22.13.0"
     },
     "categories": [
         "Other"
@@ -25,7 +28,8 @@
     "activationEvents": [
         "onCommand:websearch.github",
         "onCommand:websearch.stackoverflow",
-        "onCommand:websearch.google"
+        "onCommand:websearch.google",
+        "onCommand:websearch.customSearchProvider"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -43,6 +47,11 @@
             {
                 "command": "websearch.google",
                 "title": "Google",
+                "category": "Web Search"
+            },
+            {
+                "command": "websearch.customSearchProvider",
+                "title": "Custom provider",
                 "category": "Web Search"
             }
         ],
@@ -91,7 +100,7 @@
                     "type": "object",
                     "default": {
                         "name": "google",
-                        "baseUrl": "https://google.com/search",
+                        "baseUrl": "https://www.google.com/search",
                         "defaultQuery": {},
                         "defaultParams": {}
                     }
@@ -123,7 +132,7 @@
                 "websearch.customSearchProvider": {
                     "title": "Search providers",
                     "type": "object",
-                    "description": "A custom search provider",
+                    "description": "A custom search provider. Set a baseUrl to enable the 'Web Search: Custom provider' command.",
                     "default": {
                         "name": "customwebsearch",
                         "baseUrl": "",
@@ -148,7 +157,7 @@
                     "type": "array",
                     "description": "A list of search provider",
                     "default": [],
-                    "deprecationMessage": "This property has been depreacted in favour of custom or individual properties. Please read: https://github.com/platinumjesus/vscode-advanced-search-extension"
+                    "deprecationMessage": "This property has been depreacted in favour of custom or individual properties. Please read: https://github.com/ettoreboy/vscode-advanced-search-extension"
                 }
             }
         },
@@ -173,26 +182,27 @@
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile",
         "test": "node ./out/test/runTests.js",
-        "lint": "eslint . --ext .ts,.tsx",
-        "changelog": "changelog"
+        "lint": "eslint .",
+        "package": "vsce package",
+        "publish": "vsce publish"
     },
     "devDependencies": {
-        "@types/glob": "^7.1.3",
-        "@types/mocha": "^8.0.3",
-        "@types/node": "^14.11.5",
+        "@eslint/js": "^10.0.1",
+        "@types/mocha": "^10.0.10",
+        "@types/node": "^22.20.5",
         "@types/vscode": "^1.28.0",
-        "@typescript-eslint/eslint-plugin": "^4.4.0",
-        "@typescript-eslint/parser": "^4.4.0",
-        "eslint": "^7.10.0",
-        "glob": "^7.1.6",
-        "keep-a-changelog": "^0.10.1",
-        "mocha": "^8.1.3",
-        "source-map-support": "^0.5.19",
+        "@vscode/test-electron": "^3.1.0",
+        "@vscode/vsce": "^4.0.0",
+        "eslint": "^10.13.0",
+        "mocha": "^12.0.3",
         "ts-mockito": "^2.6.1",
-        "typescript": "^4.0.3",
-        "vscode-test": "^1.4.0"
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.72.0"
     },
     "dependencies": {
-        "open": "^7.3.0"
+        "open": "^8.4.2"
+    },
+    "overrides": {
+        "@azure/msal-node": "^7.1.1"
     }
 }

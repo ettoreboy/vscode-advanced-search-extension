@@ -1,11 +1,19 @@
 # Add 'repo' label to any root file changes
 repo:
-  - ./*
+  - changed-files:
+      - any-glob-to-any-file: '*'
 
 # Add 'test' label to any change to *.test.ts files within the source dir
 test:
-  - src/**/*.test.ts
+  - changed-files:
+      - any-glob-to-any-file: 'src/**/*.test.ts'
 
-# Add 'source' label to any change to src files within the source dir EXCEPT for the docs sub-folder
+# Add 'source' label to any change to src files within the source dir
 source:
-  - any: ["src/**/*", "!src/docs/*"]
+  - changed-files:
+      - any-glob-to-any-file: 'src/**/*'
+
+# Add 'ci' label to workflow and action configuration changes
+ci:
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'

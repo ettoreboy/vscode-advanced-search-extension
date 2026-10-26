@@ -48,4 +48,20 @@ suite("BrowserDeterminator tests", function () {
 
         restorePlatform();
     });
+
+    test("Browser resolves to the executable name in Windows", () => {
+        mockPlatform("win32");
+
+        strictEqual(BrowserDeterminator.getOSBrowserName("google-chrome"), "chrome");
+
+        restorePlatform();
+    });
+
+    test("Browser resolves undefined when the name is not set", () => {
+        mockPlatform();
+
+        strictEqual(BrowserDeterminator.getOSBrowserName(undefined), undefined);
+
+        restorePlatform();
+    });
 });

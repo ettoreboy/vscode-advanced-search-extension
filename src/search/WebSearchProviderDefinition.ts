@@ -5,16 +5,11 @@
  */
 export default interface SearchProviderDefinition {
     /**
-     * The name identifier of the search provider
+     * The name identifier of the search provider.
+     * Used for display only - the command id comes from the configuration key.
      * @example github
      */
     name: string;
-
-    /**
-     * The name of the search provider's class
-     * @example GithubSearch
-     */
-    className: string;
 
     /**
      * The map of the default first component of the baseUrl
